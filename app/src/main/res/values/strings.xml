@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">MediaSearchApp</string>
-    <string name="tab_text_1">Tab 1</string>
-    <string name="tab_text_2">Tab 2</string>
+    <string name="label_tab_search">검색</string>
+    <string name="label_tab_favorite">보관함</string>
+
+    <string name="msg_input_keyword">검색어를 입력하세요.</string>
 </resources>
