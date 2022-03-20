@@ -1,12 +1,10 @@
 package com.project.mediasearchapp.main.view.search.domain.repository
 
-import com.project.mediasearchapp.network.api.mapper.ResponseListMapper
-import com.project.mediasearchapp.network.api.response.ImageResponse
-import com.project.mediasearchapp.network.api.response.VideoResponse
+import com.project.mediasearchapp.network.api.mapper.ResponseResultMapper
 
 interface ISearchRepository {
-    suspend fun requestSearchImage(queryMap: Map<String, String>): ResponseListMapper<ImageResponse>
-    suspend fun requestSearchVideo(queryMap: Map<String, String>): ResponseListMapper<VideoResponse>
+    suspend fun requestSearchImage(queryMap: Map<String, String>): ResponseResultMapper
+    suspend fun requestSearchVideo(queryMap: Map<String, String>): ResponseResultMapper
 
     suspend fun clearCacheData(keyword: String)
 

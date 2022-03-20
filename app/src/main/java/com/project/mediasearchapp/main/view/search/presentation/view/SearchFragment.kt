@@ -1,6 +1,7 @@
 package com.project.mediasearchapp.main.view.search.presentation.view
 
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.project.mediasearchapp.R
@@ -17,13 +18,21 @@ class SearchFragment : BaseBindFragment<SearchFragmentBinding, SearchViewModel>(
     override fun createViewModel() = viewModels<SearchViewModel>().value
 
     override fun initFragment(dataBinding: SearchFragmentBinding, viewModel: SearchViewModel) {
-        dataBinding.apply {
+        dataBinding.run {
             editInputKeyword.setOnEditorActionListener { textView, id, keyEvent ->
                 if (id == EditorInfo.IME_ACTION_SEARCH) {
                     viewModel.getSearchResult(textView.text.toString(), false, 1)
                     true
                 }
                 false
+            }
+        }
+
+        viewModel.run {
+            errorMsg.observe(this@SearchFragment.viewLifecycleOwner) {
+                activity?.let { act ->
+                    Toast.makeText(act, it, Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

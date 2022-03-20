@@ -17,6 +17,10 @@ class SearchViewModel @Inject constructor() : ViewModel(), ISearchResultItemView
     @Inject
     lateinit var useCase: SearchUseCase
 
+    private val _errorMsg by lazy { MutableLiveData<String>() }
+    val errorMsg: LiveData<String>
+        get() = _errorMsg
+
     private val _searchResultList by lazy { MutableLiveData<List<SearchViewData>>() }
     val searchResultList: LiveData<List<SearchViewData>>
         get() = _searchResultList
@@ -38,7 +42,15 @@ class SearchViewModel @Inject constructor() : ViewModel(), ISearchResultItemView
                 useCase.getSearchResult(keyword, isMoreLoad, page)
             }
 
-            _searchResultList.postValue(result)
+            when (result) {
+                is SearchUseCase.ResultData.Success -> {
+                    _searchResultList.postValue(result.dataList)
+                }
+
+                else -> {
+                    _errorMsg.postValue((result as? SearchUseCase.ResultData.Failed)?.msg)
+                }
+            }
         }
     }
 

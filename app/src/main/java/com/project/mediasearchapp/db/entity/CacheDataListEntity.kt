@@ -15,5 +15,7 @@ data class CacheDataListEntity(
     @ColumnInfo(name = "parentKeyword")
     val parentKeyword: String = "",
     @ColumnInfo(name = "data")
-    val dataJsonStr: String = ""
+    val dataJsonStr: String = "",
+    @ColumnInfo(name= "isEnd")
+    val isEnd: Int = 0
 )

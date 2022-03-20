@@ -1,8 +1,18 @@
 package com.project.mediasearchapp.network.api.mapper
 
 
-data class ResponseListMapper<DATA>(
-    val isSuccess: Boolean,
-    val dataList: List<DATA>?,
-    val errorMessage: String?
-)
+sealed class ResponseResultMapper {
+    data class Success<DATA>(
+        val isEnd: Boolean,
+        val dataList: List<DATA>?
+    ) : ResponseResultMapper()
+
+    data class Error(
+        val errorMsg: String?
+    ) : ResponseResultMapper()
+
+    data class Failed(
+        val failedType: String?,
+        val failedMsg: String?
+    ) : ResponseResultMapper()
+}
