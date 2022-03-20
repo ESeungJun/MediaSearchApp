@@ -35,7 +35,7 @@ object NetworkModule {
                 Log.d(NetworkModule::class.simpleName, message)
             }
         }).apply {
-            level = if (BuildConfig.DEBUG) HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
+            level = HttpLoggingInterceptor.Level.BODY
         }
 
         val headerInterceptor = object : Interceptor {

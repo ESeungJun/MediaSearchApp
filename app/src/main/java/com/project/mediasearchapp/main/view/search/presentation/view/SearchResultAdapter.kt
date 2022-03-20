@@ -1,5 +1,6 @@
 package com.project.mediasearchapp.main.view.search.presentation.view
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.library.baseAdapters.BR
@@ -24,7 +25,7 @@ class SearchResultAdapter(private val viewModel: ISearchResultItemViewModel) :
     }
 
     override fun onBindViewHolder(holder: SearchResultViewHolder, position: Int) {
-        if (!dataList.isNullOrEmpty()) {
+        if (!dataList.isNullOrEmpty() && position < dataList.size - 1) {
             holder.onBind(dataList[position])
         }
     }
@@ -32,11 +33,9 @@ class SearchResultAdapter(private val viewModel: ISearchResultItemViewModel) :
     override fun getItemCount() = dataList.size
 
     fun setDataList(list: List<SearchViewData>?) {
-        list?.let {
-            val lastIndex = dataList.size - 1
-            dataList.addAll(it)
-            notifyItemRangeInserted(lastIndex, dataList.size - 1)
-        }
+        dataList.clear()
+        list?.let { dataList.addAll(it) }
+        notifyDataSetChanged()
     }
 
 

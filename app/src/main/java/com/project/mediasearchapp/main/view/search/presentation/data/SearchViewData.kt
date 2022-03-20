@@ -7,7 +7,7 @@ data class SearchViewData(
 ) : Comparable<SearchViewData> {
 
     override fun compareTo(other: SearchViewData): Int {
-        return this.dateTime.compareTo(other.dateTime)
+        return other.dateTime.compareTo(this.dateTime)
     }
 
 }

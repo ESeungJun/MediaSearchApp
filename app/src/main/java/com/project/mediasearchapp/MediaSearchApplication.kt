@@ -4,4 +4,10 @@ import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class MediaSearchApplication : Application()
+class MediaSearchApplication : Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+    }
+}
