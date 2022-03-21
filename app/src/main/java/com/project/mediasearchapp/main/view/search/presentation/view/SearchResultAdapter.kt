@@ -51,6 +51,7 @@ class SearchResultAdapter(private val viewModel: ISearchResultItemViewModel) :
 
         fun onBind(data: SearchViewData?) {
             itemViewBinding.setVariable(BR.viewData, data)
+            itemViewBinding.executePendingBindings()
         }
     }
 }
