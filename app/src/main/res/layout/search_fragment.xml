@@ -5,8 +5,12 @@
     
     <data>
         <variable
+            name="itemViewModel"
+            type="com.project.mediasearchapp.itemview.presentation.viewmodel.IImageItemViewModel" />
+
+        <variable
             name="viewModel"
-            type="com.project.mediasearchapp.main.view.search.presentation.viewmodel.SearchViewModel" />
+            type="com.project.mediasearchapp.main.fragment.search.presentation.viewmodel.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,8 +33,9 @@
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@+id/editInputKeyword"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:search_init="@{viewModel}"
-            app:search_data_list="@{viewModel.searchResultList}"/>
+            app:search_vm="@{viewModel}"
+            app:search_item_vm="@{itemViewModel}"
+            app:search_data_list="@{viewModel.imageItemResultList}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

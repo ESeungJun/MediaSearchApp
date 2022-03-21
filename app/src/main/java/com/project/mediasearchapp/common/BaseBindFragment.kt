@@ -33,11 +33,7 @@ abstract class BaseBindFragment<VIEW: ViewDataBinding, VM: ViewModel>(@LayoutRes
             null
         }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         _dataBinding = DataBindingUtil.inflate<VIEW>(inflater, layoutRes, container, false)
         _viewModel = createViewModel()

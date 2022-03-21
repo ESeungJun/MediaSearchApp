@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MediaSearchApp">
 
         <activity
-            android:name=".main.view.MainActivity"
+            android:name="com.project.mediasearchapp.main.activity.home.presentation.view.HomeActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MediaSearchApp.NoActionBar">

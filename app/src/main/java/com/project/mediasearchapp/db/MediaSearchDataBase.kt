@@ -4,13 +4,22 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.project.mediasearchapp.db.dao.FavoriteDao
 import com.project.mediasearchapp.db.dao.SearchCacheDao
 import com.project.mediasearchapp.db.entity.CacheDataListEntity
 import com.project.mediasearchapp.db.entity.CacheKeywordEntity
+import com.project.mediasearchapp.db.entity.FavoriteDataEntity
 
-@Database(entities = [CacheKeywordEntity::class, CacheDataListEntity::class], version = 1, exportSchema = false)
+@Database(
+    entities = [
+        CacheKeywordEntity::class,
+        CacheDataListEntity::class,
+        FavoriteDataEntity::class,
+    ], version = 1, exportSchema = false
+)
 abstract class MediaSearchDataBase : RoomDatabase() {
     abstract fun searchCacheDao(): SearchCacheDao
+    abstract fun favoriteDao(): FavoriteDao
 
     companion object {
         @Volatile

@@ -3,6 +3,7 @@ package com.project.mediasearchapp.db.di
 import android.content.Context
 import androidx.room.Room
 import com.project.mediasearchapp.db.MediaSearchDataBase
+import com.project.mediasearchapp.db.dao.FavoriteDao
 import com.project.mediasearchapp.db.dao.SearchCacheDao
 import dagger.Module
 import dagger.Provides
@@ -22,4 +23,7 @@ object RoomModule {
 
     @Provides
     fun provideSearchCacheDao(dataBase: MediaSearchDataBase): SearchCacheDao = dataBase.searchCacheDao()
+
+    @Provides
+    fun provideFavoriteDao(dataBase: MediaSearchDataBase): FavoriteDao = dataBase.favoriteDao()
 }

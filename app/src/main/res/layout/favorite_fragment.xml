@@ -1,10 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="com.project.mediasearchapp.itemview.presentation.data.ImageItemViewData"/>
+
+        <variable
+            name="list"
+            type="List&lt;ImageItemViewData>" />
+
+        <variable
+            name="itemViewModel"
+            type="com.project.mediasearchapp.itemview.presentation.viewmodel.IImageItemViewModel" />
+    </data>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFavorite"
         android:layout_height="match_parent"
-        android:layout_width="match_parent"/>
+        android:layout_width="match_parent"
+        app:favorite_item_vm="@{itemViewModel}"
+        app:favorite_data_list="@{list}"/>
 
 </layout>
