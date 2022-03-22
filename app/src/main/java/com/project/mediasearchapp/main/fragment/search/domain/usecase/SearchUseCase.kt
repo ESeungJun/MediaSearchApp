@@ -50,9 +50,7 @@ class SearchUseCase @Inject constructor(
                     val cacheJsonStr = repository.getCacheDataWithKey(it, page)
                     if (!cacheJsonStr.isNullOrEmpty()) {
                         return withContext(Dispatchers.Default) {
-                            val favoriteList = getFavoriteList()
                             val list = GsonUtils.convertJsonToList(cacheJsonStr, ImageItemViewData::class.java)
-                            list.forEach { it.isFavorite = checkFavoriteStatus(favoriteList, it.imageUrl) }
                             totalResultList.addAll(list)
                             // 페이징 api를 최신순으로 요청했으나 검색결과에 더 나중의 페이징임에도 불구하고 더 최신 데이터가 들어오는 경우가 있어서 부득이하게 전체소팅 진행
                             totalResultList.sort()
@@ -104,7 +102,6 @@ class SearchUseCase @Inject constructor(
                         ResultData.Success(totalResultList)
                     }
                 } catch (e: Exception) {
-                    Log.e("error", e.printStackTrace().toString())
                     ResultData.Failed(e.printStackTrace().toString())
                 }
             }
