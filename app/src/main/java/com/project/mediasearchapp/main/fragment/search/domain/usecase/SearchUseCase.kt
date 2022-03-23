@@ -17,7 +17,6 @@ class SearchUseCase @Inject constructor(
 ) {
 
     private var preKeyword: String? = null
-    private val totalResultList = mutableListOf<ImageItemViewData>()
 
     private var isImageApiEnd = false
     private var isVideoApiEnd = false
@@ -29,8 +28,6 @@ class SearchUseCase @Inject constructor(
 
             isImageApiEnd = false
             isVideoApiEnd = false
-
-            totalResultList.clear()
         }
 
         if (isImageApiEnd && isVideoApiEnd) {
@@ -50,11 +47,10 @@ class SearchUseCase @Inject constructor(
                     val cacheJsonStr = repository.getCacheDataWithKey(it, page)
                     if (!cacheJsonStr.isNullOrEmpty()) {
                         return withContext(Dispatchers.Default) {
+                            val favoriteList = getFavoriteList()
                             val list = GsonUtils.convertJsonToList(cacheJsonStr, ImageItemViewData::class.java)
-                            totalResultList.addAll(list)
-                            // 페이징 api를 최신순으로 요청했으나 검색결과에 더 나중의 페이징임에도 불구하고 더 최신 데이터가 들어오는 경우가 있어서 부득이하게 전체소팅 진행
-                            totalResultList.sort()
-                            ResultData.Success(totalResultList)
+                            list.forEach { it.isFavorite = checkFavoriteStatus(favoriteList, it.imageUrl) }
+                            ResultData.Success(list)
                         }
                     }
                 }
@@ -96,10 +92,7 @@ class SearchUseCase @Inject constructor(
                     repository.addCacheSearchData(it, page, GsonUtils.convertListToJson(tempPageList))
 
                     withContext(Dispatchers.Default) {
-                        totalResultList.addAll(tempPageList)
-                        // 페이징 api를 최신순으로 요청했으나 검색결과에 더 나중의 페이징임에도 불구하고 더 최신 데이터가 들어오는 경우가 있어서 부득이하게 전체소팅 진행
-                        totalResultList.sort()
-                        ResultData.Success(totalResultList)
+                        ResultData.Success(tempPageList)
                     }
                 } catch (e: Exception) {
                     ResultData.Failed(e.printStackTrace().toString())
@@ -167,7 +160,7 @@ class SearchUseCase @Inject constructor(
         queryMap["query"] = keyword
         queryMap["page"] = "$page"
         queryMap["sort"] = "recency"
-        queryMap["size"] = "10"
+        queryMap["size"] = "40"
 
         return queryMap
     }
