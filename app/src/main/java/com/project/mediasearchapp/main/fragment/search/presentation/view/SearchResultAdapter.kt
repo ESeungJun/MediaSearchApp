@@ -7,12 +7,6 @@ import com.project.mediasearchapp.main.fragment.search.presentation.viewmodel.Se
 
 class SearchResultAdapter(viewModel: IImageItemViewModel) : ImageItemViewAdapter(viewModel) {
 
-    override fun setDataList(list: List<ImageItemViewData>?) {
-        dataList.clear()
-        list?.let { dataList.addAll(it) }
-        notifyDataSetChanged()
-    }
-
     fun notifyItemStatus(data: ImageItemViewData) {
         dataList.find { it == data }?.let { findItem ->
             findItem.isFavorite = data.isFavorite

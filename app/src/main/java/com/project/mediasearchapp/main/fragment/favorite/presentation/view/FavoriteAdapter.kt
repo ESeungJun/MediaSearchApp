@@ -6,18 +6,13 @@ import com.project.mediasearchapp.itemview.presentation.viewmodel.IImageItemView
 
 class FavoriteAdapter(viewModel: IImageItemViewModel) : ImageItemViewAdapter(viewModel) {
 
-    override fun setDataList(list: List<ImageItemViewData>?) {
-        if (!list.isNullOrEmpty()) {
-            dataList.clear()
-            dataList.addAll(list)
-            notifyDataSetChanged()
-        }
-    }
-
     fun notifyRemoveItem(data: ImageItemViewData) {
         val removeIndex = dataList.indexOf(dataList.find { it.imageUrl == data.imageUrl })
-        dataList.removeAt(removeIndex)
-        notifyItemRemoved(removeIndex)
+
+        if (removeIndex < dataList.size) {
+            dataList.removeAt(removeIndex)
+            notifyItemRemoved(removeIndex)
+        }
     }
 
     fun notifyAddItem(data: ImageItemViewData) {

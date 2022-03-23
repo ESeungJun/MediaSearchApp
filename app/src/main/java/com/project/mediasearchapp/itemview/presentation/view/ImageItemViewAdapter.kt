@@ -9,7 +9,6 @@ import com.project.mediasearchapp.itemview.presentation.data.ImageItemViewData
 
 abstract class ImageItemViewAdapter(private val viewModel: IImageItemViewModel) : RecyclerView.Adapter<ImageItemViewHolder>() {
 
-    abstract fun setDataList(list: List<ImageItemViewData>?)
 
     protected val dataList by lazy { mutableListOf<ImageItemViewData>() }
 
@@ -24,4 +23,15 @@ abstract class ImageItemViewAdapter(private val viewModel: IImageItemViewModel) 
     }
 
     override fun getItemCount() = dataList.size
+
+    fun setDataList(list: List<ImageItemViewData>?) {
+        list?.let {
+            val addIndex = dataList.size - 1
+            dataList.addAll(it)
+            notifyItemRangeInserted(addIndex, list.size - 1)
+        } ?: run {
+            dataList.clear()
+            notifyDataSetChanged()
+        }
+    }
 }
